@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercises – SetBuilder</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/exercises.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html">← SetBuilder</a>
+      <h1>Exercises</h1>
+    </header>
+    <main id="app">
+      <!-- Filter controls -->
+      <section id="filters">
+        <input type="text" id="search" placeholder="Search exercises..." />
+        <select id="bodyPart">
+          <option value="">All Body Parts</option>
+          <option value="Abdominals">Abdominals</option>
+          <option value="Abductors">Abductors</option>
+          <option value="Adductors">Adductors</option>
+          <option value="Biceps">Biceps</option>
+          <option value="Calves">Calves</option>
+          <option value="Chest">Chest</option>
+          <option value="Forearms">Forearms</option>
+          <option value="Glutes">Glutes</option>
+          <option value="Hamstrings">Hamstrings</option>
+          <option value="Lats">Lats</option>
+          <option value="Lower Back">Lower Back</option>
+          <option value="Middle Back">Middle Back</option>
+          <option value="Neck">Neck</option>
+          <option value="Quadriceps">Quadriceps</option>
+          <option value="Shoulders">Shoulders</option>
+          <option value="Traps">Traps</option>
+          <option value="Triceps">Triceps</option>
+        </select>
+        <select id="equipment">
+          <option value="">All Equipment</option>
+          <option value="Bands">Bands</option>
+          <option value="Barbell">Barbell</option>
+          <option value="Body Only">Body Only</option>
+          <option value="Cable">Cable</option>
+          <option value="Dumbbell">Dumbbell</option>
+          <option value="E-Z Curl Bar">E-Z Curl Bar</option>
+          <option value="Exercise Ball">Exercise Ball</option>
+          <option value="Foam Roll">Foam Roll</option>
+          <option value="Kettlebells">Kettlebells</option>
+          <option value="Machine">Machine</option>
+          <option value="Medicine Ball">Medicine Ball</option>
+          <option value="None">None</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="level">
+          <option value="">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Expert">Expert</option>
+        </select>
+        <button id="filter-btn">Filter</button>
+        <button id="add-btn">+ Add Exercise</button>
+      </section>
+      <!-- Exercise cards render here via JS -->
+      <section id="exercise-list"></section>
+      <!-- Add exercise form, hidden by default -->
+      <section id="exercise-form" style="display: none">
+        <h2>Add New Exercise</h2>
+        <form id="add-exercise-form">
+          <input
+            type="text"
+            id="new-title"
+            placeholder="Exercise name"
+            required
+          />
+          <input
+            type="text"
+            id="new-bodypart"
+            placeholder="Body part"
+            required
+          />
+          <input
+            type="text"
+            id="new-equipment"
+            placeholder="Equipment"
+            required
+          />
+          <select id="new-level">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Expert">Expert</option>
+          </select>
+          <input
+            type="text"
+            id="new-type"
+            placeholder="Type (e.g. Strength)"
+            required
+          />
+          <textarea id="new-desc" placeholder="Description"></textarea>
+          <button type="submit">Save Exercise</button>
+          <button type="button" id="cancel-btn">Cancel</button>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="js/exercises.js"></script>
+  </body>
+</html>
