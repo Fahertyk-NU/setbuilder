@@ -45,7 +45,7 @@ app.get("/api/exercises", async (req, res) => {
       .limit(20)
       .toArray();
     res.json(exercises);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: "Failed to fetch exercises" });
   }
 });
@@ -68,7 +68,7 @@ app.post("/api/exercises", async (req, res) => {
     const exercise = req.body;
     const result = await db.collection("exercises").insertOne(exercise);
     res.json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: "Failed to add exercise" });
   }
 });
@@ -83,7 +83,7 @@ app.put("/api/exercises/:id", async (req, res) => {
       .collection("exercises")
       .updateOne({ _id: id }, { $set: update });
     res.json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: "Failed to update exercise" });
   }
 });
@@ -95,7 +95,7 @@ app.delete("/api/exercises/:id", async (req, res) => {
     const id = new ObjectId(req.params.id);
     const result = await db.collection("exercises").deleteOne({ _id: id });
     res.json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ error: "Failed to delete exercise" });
   }
 });
