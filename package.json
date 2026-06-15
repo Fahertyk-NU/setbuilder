@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
+    "lint": "eslint server/ public/js/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,11 +20,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.5.0"
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4"
   },
   "scripts": {
     "start": "node server/index.js",
     "lint": "eslint server/ public/js/",
+    "format": "prettier --write server/ public/js/ public/*.html public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
