@@ -103,6 +103,28 @@
   align-items: center;
 }
 
+#form-search-results {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
 #exercise-search-area input {
   flex: 2;
   min-width: 160px;
