@@ -106,9 +106,15 @@ async function loadWorkouts() {
       <h2>${plan.name}</h2>
       <p>${plan.description || ""}</p>
       <ul>
-        ${plan.exercises?.length
-          ? plan.exercises.map((ex) => `<li>${ex.Title} — ${ex.BodyPart} (${ex.Level})</li>`).join("")
-          : "<li>No exercises added yet.</li>"}
+        ${
+          plan.exercises?.length
+            ? plan.exercises
+                .map(
+                  (ex) => `<li>${ex.Title} — ${ex.BodyPart} (${ex.Level})</li>`
+                )
+                .join("")
+            : "<li>No exercises added yet.</li>"
+        }
       </ul>
       <button type="button" class="edit-btn">Edit</button>
       <button type="button" class="delete-btn">Delete</button>
@@ -116,7 +122,12 @@ async function loadWorkouts() {
 
     card.querySelector(".edit-btn").addEventListener("click", () => {
       editingId = plan._id;
-      openForm("Edit Workout Plan", plan.name, plan.description, plan.exercises || []);
+      openForm(
+        "Edit Workout Plan",
+        plan.name,
+        plan.description,
+        plan.exercises || []
+      );
     });
 
     card.querySelector(".delete-btn").addEventListener("click", async () => {
