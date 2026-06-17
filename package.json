@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "SetBuilder - Workout Planner",
   "main": "index.js",
-  "scripts": {
-    "start": "node server/index.js",
-    "lint": "eslint server/ public/js/",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "Kaylee Faherty",
   "license": "MIT",

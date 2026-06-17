@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Plans SetBuilder</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/workouts.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html">← SetBuilder</a>
+      <h1>Workout Plans</h1>
+    </header>
+
+    <main id="app">
+      <section>
+  <button id="show-form-btn">+ Create Workout Plan</button>
+</section>
+
+<section id="workout" style="display: none">
+  <h2 id="form-title">Create Workout Plan</h2>
+
+  <form id="add-workout-form">
+    <input type="text" id="workout-name" placeholder="workout name" required />
+    <textarea id="workout-description" placeholder="Description"></textarea>
+
+    <h3>Exercises in this plan</h3>
+    <ul id="form-exercise-list"></ul>
+
+    <div id="exercise-search-area">
+      <input type="text" id="form-exercise-search" placeholder="Search exercises to add..." />
+      <select id="form-bodypart">
+        <option value="">All Body Parts</option>
+        <option value="Abdominals">Abdominals</option>
+        <option value="Abductors">Abductors</option>
+        <option value="Adductors">Adductors</option>
+        <option value="Biceps">Biceps</option>
+        <option value="Calves">Calves</option>
+        <option value="Chest">Chest</option>
+        <option value="Forearms">Forearms</option>
+        <option value="Glutes">Glutes</option>
+        <option value="Hamstrings">Hamstrings</option>
+        <option value="Lats">Lats</option>
+        <option value="Lower Back">Lower Back</option>
+        <option value="Middle Back">Middle Back</option>
+        <option value="Neck">Neck</option>
+        <option value="Quadriceps">Quadriceps</option>
+        <option value="Shoulders">Shoulders</option>
+        <option value="Traps">Traps</option>
+        <option value="Triceps">Triceps</option>
+      </select>
+      <select id="form-equipment">
+        <option value="">All Equipment</option>
+        <option value="Bands">Bands</option>
+        <option value="Barbell">Barbell</option>
+        <option value="Body Only">Body Only</option>
+        <option value="Cable">Cable</option>
+        <option value="Dumbbell">Dumbbell</option>
+        <option value="E-Z Curl Bar">E-Z Curl Bar</option>
+        <option value="Exercise Ball">Exercise Ball</option>
+        <option value="Foam Roll">Foam Roll</option>
+        <option value="Kettlebells">Kettlebells</option>
+        <option value="Machine">Machine</option>
+        <option value="Medicine Ball">Medicine Ball</option>
+        <option value="None">None</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="form-level">
+        <option value="">All Levels</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Expert">Expert</option>
+      </select>
+      <div id="form-search-results"></div>
+    </div>
+
+    <button type="submit">Save Plan</button>
+    <button type="button" id="cancel-form-btn">Cancel</button>
+  </form>
+</section>
+
+<section id="workout-list"></section>
+    </main>
+
+    <script type="module" src="js/workouts.js"></script>
+  </body>
+</html>

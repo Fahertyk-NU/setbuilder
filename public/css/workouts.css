@@ -1,0 +1,135 @@
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem;
+  background-color: #1b2a4a;
+  align-items: center;
+}
+
+#filters input,
+#filters select {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: white;
+}
+
+#workout-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.workout-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.workout-card h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.3rem;
+  color: #1b2a4a;
+  letter-spacing: 1px;
+}
+
+.workout-card p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.delete-btn {
+  background-color: #e63946;
+}
+
+.delete-btn:hover {
+  background-color: #c1121f;
+}
+
+#workout-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.1);
+}
+
+#workout-form h2 {
+  font-family: "Bebas Neue", sans-serif;
+  color: #1b2a4a;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+#add-workout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  max-width: 500px;
+}
+
+#add-workout-form input,
+#add-workout-form textarea,
+#add-workout-form select {
+  padding: 10px;
+  font-size: 16px;
+}
+
+#add-workout-form textarea {
+  min-height: 100px;
+}
+
+#exercise-search-area {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#exercise-search-area input {
+  flex: 2;
+  min-width: 160px;
+}
+
+#exercise-search-area select {
+  min-width: 130px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
+#filter-btn {
+  background-color: #e63946;
+}
+
+#filter-btn:hover {
+  background-color: #c1121f;
+}
+
+#add-btn {
+  background-color: #e63946;
+  color: white;
+}
+
+#add-btn:hover {
+  background-color: #c1121f;
+}
