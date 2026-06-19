@@ -35,6 +35,36 @@ export function registerExerciseRoutes(app) {
     res.json(values.sort());
   });
 
+  // GET /api/exercises/random - get random exercises based on optional filters
+  app.get("/api/exercises/random", async (req, res) => {
+    try {
+      const { equipment, level, count } = req.query;
+      const match = {};
+
+      // Handle single or multiple body part values
+      let bodyParts = req.query.bodyPart;
+      if (bodyParts) {
+        if (!Array.isArray(bodyParts)) bodyParts = [bodyParts];
+        match.BodyPart = { $in: bodyParts };
+      }
+
+      if (equipment) match.Equipment = equipment;
+      if (level) match.Level = level;
+
+      const exercises = await db
+        .collection("exercises")
+        .aggregate([
+          { $match: match },
+          { $sample: { size: parseInt(count) || 6 } },
+        ])
+        .toArray();
+
+      res.json(exercises);
+    } catch (_error) {
+      res.status(500).json({ error: "Failed to generate workout" });
+    }
+  });
+
   // POST /api/exercises - add a new exercise to the database
   app.post("/api/exercises", async (req, res) => {
     try {

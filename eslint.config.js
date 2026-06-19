@@ -38,4 +38,16 @@ export default [
       "no-console": "off",
     },
   },
+  {
+    files: ["public/js/**/*.js"],
+    languageOptions: {
+      globals: {
+        document: "readonly",
+        fetch: "readonly",
+        confirm: "readonly",
+        URLSearchParams: "readonly",
+        console: "readonly",
+      },
+    },
+  },
 ];

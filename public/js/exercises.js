@@ -152,5 +152,36 @@ function handleEdit(e) {
   });
 }
 
+// Random workout generator
+document.getElementById("random-btn").addEventListener("click", async () => {
+  const checked = [
+    ...document.querySelectorAll("#random-bodypart-options input:checked"),
+  ].map((cb) => cb.value);
+  const level = document.getElementById("random-level").value;
+  const count = document.getElementById("random-count").value;
+
+  const params = new URLSearchParams({ level, count });
+  checked.forEach((bp) => params.append("bodyPart", bp));
+
+  const res = await fetch(`/api/exercises/random?${params}`);
+  const exercises = await res.json();
+
+  const results = document.getElementById("random-results");
+  results.innerHTML = `<h3>Your Random Workout</h3>`;
+
+  exercises.forEach((ex) => {
+    const card = document.createElement("div");
+    card.classList.add("exercise-card");
+    card.innerHTML = `
+      <h2>${ex.Title}</h2>
+      <p><strong>Body Part:</strong> ${ex.BodyPart}</p>
+      <p><strong>Equipment:</strong> ${ex.Equipment}</p>
+      <p><strong>Level:</strong> ${ex.Level}</p>
+      <p>${ex.Desc || ""}</p>
+    `;
+    results.appendChild(card);
+  });
+});
+
 // Load on start
 fetchExercises();

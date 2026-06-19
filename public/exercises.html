@@ -63,6 +63,53 @@
       </section>
       <!-- Exercise cards render here via JS -->
       <section id="exercise-list"></section>
+      <!-- Random workout generator -->
+      <section id="random-section">
+        <div id="random-controls">
+          <h2>Not sure where to start?</h2>
+          <p>Generate a random workout based on your preferences.</p>
+          <div id="random-filters">
+            <div id="random-bodypart-options">
+              <p><strong>Body Parts:</strong></p>
+              <label
+                ><input type="checkbox" value="Abdominals" /> Abdominals</label
+              >
+              <label><input type="checkbox" value="Biceps" /> Biceps</label>
+              <label><input type="checkbox" value="Calves" /> Calves</label>
+              <label><input type="checkbox" value="Chest" /> Chest</label>
+              <label><input type="checkbox" value="Glutes" /> Glutes</label>
+              <label
+                ><input type="checkbox" value="Hamstrings" /> Hamstrings</label
+              >
+              <label><input type="checkbox" value="Lats" /> Lats</label>
+              <label
+                ><input type="checkbox" value="Lower Back" /> Lower Back</label
+              >
+              <label
+                ><input type="checkbox" value="Quadriceps" /> Quadriceps</label
+              >
+              <label
+                ><input type="checkbox" value="Shoulders" /> Shoulders</label
+              >
+              <label><input type="checkbox" value="Triceps" /> Triceps</label>
+            </div>
+            <select id="random-level">
+              <option value="">Any Level</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Expert">Expert</option>
+            </select>
+            <select id="random-count">
+              <option value="4">4 exercises</option>
+              <option value="6" selected>6 exercises</option>
+              <option value="8">8 exercises</option>
+              <option value="10">10 exercises</option>
+            </select>
+            <button id="random-btn">Generate Workout</button>
+          </div>
+        </div>
+        <div id="random-results"></div>
+      </section>
       <!-- Add exercise form, hidden by default -->
       <section id="exercise-form" style="display: none">
         <h2>Add New Exercise</h2>
