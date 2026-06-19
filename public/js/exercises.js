@@ -55,7 +55,14 @@ document.getElementById("filter-btn").addEventListener("click", () => {
   const bodyPart = document.getElementById("bodyPart").value;
   const level = document.getElementById("level").value;
   const equipment = document.getElementById("equipment").value;
-  fetchExercises({ search, bodyPart, level, equipment });
+
+  const filters = {};
+  if (search) filters.search = search;
+  if (bodyPart) filters.bodyPart = bodyPart;
+  if (level) filters.level = level;
+  if (equipment) filters.equipment = equipment;
+
+  fetchExercises(filters);
 });
 
 // Show/hide add form
