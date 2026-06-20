@@ -70,6 +70,8 @@ PORT=3000
 
 **Kaylee Faherty:** Claude Sonnet (Anthropic, claude-sonnet-4-6) was used throughout this project as a learning guide and coding assistant. It was used to explain concepts, talk through architectural decisions, troubleshoot errors, and suggest approaches as I built out the Express/MongoDB backend, frontend JavaScript, and CSS. All generated code was carefully reviewed, tested, and understood before being committed. Key prompts included project planning, setting up the Express/MongoDB architecture, implementing CRUD routes, and building the random workout generator feature.
 
+**Haotian Qian:** Claude Sonnet (Anthropic, claude-sonnet-4-6) was used throughout this project as a coding assistant and debugging aid. It was used to clarify concepts, discuss implementation strategies, diagnose issues, and suggest solutions as I built the workout plans feature, including the CRUD interface, inline exercise search with live filtering, and the form-based plan editor. All generated code was reviewed, tested, and understood before being committed. Key prompts included designing the workout plan data model, wiring up the frontend form state to REST API calls, and handling edit vs. create mode in a single shared form.
+
 ## License
 
 [MIT](./LICENSE)
