@@ -38,25 +38,66 @@ export function registerExerciseRoutes(app) {
   // GET /api/exercises/random - get random exercises based on optional filters
   app.get("/api/exercises/random", async (req, res) => {
     try {
-      const { equipment, level, count } = req.query;
-      const match = {};
+      const { level, count } = req.query;
 
-      // Handle single or multiple body part values
       let bodyParts = req.query.bodyPart;
-      if (bodyParts) {
-        if (!Array.isArray(bodyParts)) bodyParts = [bodyParts];
-        match.BodyPart = { $in: bodyParts };
+      if (bodyParts && !Array.isArray(bodyParts)) bodyParts = [bodyParts];
+
+      let equipment = req.query.equipment;
+      if (equipment && !Array.isArray(equipment)) equipment = [equipment];
+
+      const totalCount = parseInt(count) || 6;
+
+      // If body parts selected, get at least one per body part
+      if (bodyParts && bodyParts.length > 0) {
+        const perGroup = Math.max(1, Math.floor(totalCount / bodyParts.length));
+        const remainder = totalCount - perGroup * bodyParts.length;
+
+        let results = [];
+
+        for (const bp of bodyParts) {
+          const match = { BodyPart: bp };
+          if (equipment && equipment.length > 0)
+            match.Equipment = { $in: equipment };
+          if (level) match.Level = level;
+
+          const exercises = await db
+            .collection("exercises")
+            .aggregate([{ $match: match }, { $sample: { size: perGroup } }])
+            .toArray();
+
+          results = results.concat(exercises);
+        }
+
+        // Fill remainder randomly from all selected body parts
+        if (remainder > 0) {
+          const match = { BodyPart: { $in: bodyParts } };
+          if (equipment && equipment.length > 0)
+            match.Equipment = { $in: equipment };
+          if (level) match.Level = level;
+
+          const extra = await db
+            .collection("exercises")
+            .aggregate([{ $match: match }, { $sample: { size: remainder } }])
+            .toArray();
+
+          results = results.concat(extra);
+        }
+
+        // Shuffle results
+        results.sort(() => Math.random() - 0.5);
+        return res.json(results);
       }
 
-      if (equipment) match.Equipment = equipment;
+      // No body parts selected — just sample randomly
+      const match = {};
+      if (equipment && equipment.length > 0)
+        match.Equipment = { $in: equipment };
       if (level) match.Level = level;
 
       const exercises = await db
         .collection("exercises")
-        .aggregate([
-          { $match: match },
-          { $sample: { size: parseInt(count) || 6 } },
-        ])
+        .aggregate([{ $match: match }, { $sample: { size: totalCount } }])
         .toArray();
 
       res.json(exercises);

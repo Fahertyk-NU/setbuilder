@@ -168,6 +168,36 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+#random-equipment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+#random-equipment-options p {
+  color: white;
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+#random-equipment-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+#random-equipment-options label:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 #random-section select {
   padding: 0.5rem 0.75rem;
   border: none;

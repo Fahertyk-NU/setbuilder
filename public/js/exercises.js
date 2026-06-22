@@ -68,6 +68,9 @@ document.getElementById("filter-btn").addEventListener("click", () => {
 // Show/hide add form
 document.getElementById("add-btn").addEventListener("click", () => {
   document.getElementById("exercise-form").style.display = "block";
+  document
+    .getElementById("exercise-form")
+    .scrollIntoView({ behavior: "smooth" });
 });
 
 document.getElementById("cancel-btn").addEventListener("click", () => {
@@ -161,14 +164,18 @@ function handleEdit(e) {
 
 // Random workout generator
 document.getElementById("random-btn").addEventListener("click", async () => {
-  const checked = [
+  const checkedBodyParts = [
     ...document.querySelectorAll("#random-bodypart-options input:checked"),
+  ].map((cb) => cb.value);
+  const checkedEquipment = [
+    ...document.querySelectorAll("#random-equipment-options input:checked"),
   ].map((cb) => cb.value);
   const level = document.getElementById("random-level").value;
   const count = document.getElementById("random-count").value;
 
   const params = new URLSearchParams({ level, count });
-  checked.forEach((bp) => params.append("bodyPart", bp));
+  checkedBodyParts.forEach((bp) => params.append("bodyPart", bp));
+  checkedEquipment.forEach((eq) => params.append("equipment", eq));
 
   const res = await fetch(`/api/exercises/random?${params}`);
   const exercises = await res.json();
