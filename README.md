@@ -40,8 +40,10 @@ SetBuilder is a full stack fitness web application that helps users discover exe
 ```
 
 3. Create a `.env` file in the root directory:
+```bash
 MONGO_URI=your_mongodb_connection_string
 PORT=3000
+```
 
 4. Seed the database:
 ```bash
