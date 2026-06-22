@@ -17,7 +17,7 @@ SetBuilder is a full stack fitness web application that helps users discover exe
 
 ## Video Demonstration
 
-[Watch the demo](link to be added)
+[Watch the demo](https://youtu.be/q0iRPGYIdtQ)
 
 ## Tech Stack
 
