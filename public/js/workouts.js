@@ -63,8 +63,16 @@ async function runSearch() {
     equipment: formEquipment.value,
     level: formLevel.value,
   });
-  const res = await fetch(`/api/exercises?${params}`);
-  const exercises = await res.json();
+  let exercises;
+  try {
+    const res = await fetch(`/api/exercises?${params}`);
+    // Throw if the server returned a non-2xx status so the catch block handles it
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    exercises = await res.json();
+  } catch (err) {
+    console.error("Failed to search exercises:", err);
+    return;
+  }
   formSearchResults.innerHTML = "";
   exercises.forEach((ex) => {
     const div = document.createElement("div");
@@ -95,8 +103,15 @@ formEquipment.addEventListener("change", triggerSearch);
 formLevel.addEventListener("change", triggerSearch);
 
 async function loadWorkouts() {
-  const res = await fetch("/api/workouts");
-  const workouts = await res.json();
+  let workouts;
+  try {
+    const res = await fetch("/api/workouts");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    workouts = await res.json();
+  } catch (err) {
+    console.error("Failed to load workouts:", err);
+    return;
+  }
 
   workoutList.innerHTML = "";
 
@@ -131,7 +146,13 @@ async function loadWorkouts() {
     });
 
     card.querySelector(".delete-btn").addEventListener("click", async () => {
-      await fetch(`/api/workouts/${plan._id}`, { method: "DELETE" });
+      try {
+        const res = await fetch(`/api/workouts/${plan._id}`, { method: "DELETE" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } catch (err) {
+        console.error("Failed to delete workout:", err);
+        return;
+      }
       loadWorkouts();
     });
 
@@ -150,18 +171,25 @@ addPlanForm.addEventListener("submit", async (event) => {
 
   if (!workout.name) return;
 
-  if (editingId) {
-    await fetch(`/api/workouts/${editingId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(workout),
-    });
-  } else {
-    await fetch("/api/workouts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(workout),
-    });
+  try {
+    if (editingId) {
+      const res = await fetch(`/api/workouts/${editingId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workout),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } else {
+      const res = await fetch("/api/workouts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workout),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    }
+  } catch (err) {
+    console.error("Failed to save workout:", err);
+    return;
   }
 
   closeForm();

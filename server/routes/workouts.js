@@ -6,7 +6,9 @@ export function registerWorkoutRoutes(app) {
     try {
       const workouts = await db.collection("workouts").find({}).toArray();
       res.json(workouts);
-    } catch (_error) {
+    } catch (err) {
+      // Log the real error so it appears in server logs for debugging
+      console.error(err);
       res.status(500).json({ error: "Failed to fetch workout plans" });
     }
   });
@@ -17,7 +19,8 @@ export function registerWorkoutRoutes(app) {
       const workout = req.body;
       const result = await db.collection("workouts").insertOne(workout);
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to create workout plan" });
     }
   });
@@ -29,7 +32,8 @@ export function registerWorkoutRoutes(app) {
       const id = new ObjectId(req.params.id);
       const result = await db.collection("workouts").deleteOne({ _id: id });
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to delete workout plan" });
     }
   });
@@ -44,7 +48,8 @@ export function registerWorkoutRoutes(app) {
         .collection("workouts")
         .updateOne({ _id: id }, { $set: update });
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to update workouts" });
     }
   });
@@ -56,7 +61,8 @@ export function registerWorkoutRoutes(app) {
       const id = new ObjectId(req.params.id);
       const workout = await db.collection("workouts").findOne({ _id: id });
       res.json(workout);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to fetch this workout plan" });
     }
   });
