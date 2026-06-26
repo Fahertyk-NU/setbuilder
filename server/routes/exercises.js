@@ -18,7 +18,9 @@ export function registerExerciseRoutes(app) {
         .limit(20)
         .toArray();
       res.json(exercises);
-    } catch (_error) {
+    } catch (err) {
+      // Log the real error so it appears in server logs for debugging
+      console.error(err);
       res.status(500).json({ error: "Failed to fetch exercises" });
     }
   });
@@ -84,8 +86,12 @@ export function registerExerciseRoutes(app) {
           results = results.concat(extra);
         }
 
-        // Shuffle results
-        results.sort(() => Math.random() - 0.5);
+        // Fisher-Yates shuffle: unbiased O(n) algorithm that guarantees each
+        // permutation is equally likely, unlike sort(() => Math.random() - 0.5)
+        for (let i = results.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [results[i], results[j]] = [results[j], results[i]];
+        }
         return res.json(results);
       }
 
@@ -101,7 +107,8 @@ export function registerExerciseRoutes(app) {
         .toArray();
 
       res.json(exercises);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to generate workout" });
     }
   });
@@ -112,7 +119,8 @@ export function registerExerciseRoutes(app) {
       const exercise = req.body;
       const result = await db.collection("exercises").insertOne(exercise);
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to add exercise" });
     }
   });
@@ -127,7 +135,8 @@ export function registerExerciseRoutes(app) {
         .collection("exercises")
         .updateOne({ _id: id }, { $set: update });
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to update exercise" });
     }
   });
@@ -139,7 +148,8 @@ export function registerExerciseRoutes(app) {
       const id = new ObjectId(req.params.id);
       const result = await db.collection("exercises").deleteOne({ _id: id });
       res.json(result);
-    } catch (_error) {
+    } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Failed to delete exercise" });
     }
   });

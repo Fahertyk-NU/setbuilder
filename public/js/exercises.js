@@ -4,9 +4,15 @@ const API = "/api/exercises";
 // Fetch exercises from the API with optional filters
 async function fetchExercises(filters = {}) {
   const params = new URLSearchParams(filters);
-  const res = await fetch(`${API}?${params}`);
-  const data = await res.json();
-  renderExercises(data);
+  try {
+    const res = await fetch(`${API}?${params}`);
+    // Throw if the server returned a non-2xx status so the catch block handles it
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    renderExercises(data);
+  } catch (err) {
+    console.error("Failed to fetch exercises:", err);
+  }
 }
 
 // Build and render exercise cards from API data
@@ -91,11 +97,17 @@ document
       Desc: document.getElementById("new-desc").value,
     };
 
-    await fetch(API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(exercise),
-    });
+    try {
+      const res = await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(exercise),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch (err) {
+      console.error("Failed to add exercise:", err);
+      return;
+    }
 
     document.getElementById("exercise-form").style.display = "none";
     document.getElementById("add-exercise-form").reset();
@@ -106,7 +118,13 @@ document
 async function handleDelete(e) {
   const id = e.target.dataset.id;
   if (!confirm("Delete this exercise?")) return;
-  await fetch(`${API}/${id}`, { method: "DELETE" });
+  try {
+    const res = await fetch(`${API}/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  } catch (err) {
+    console.error("Failed to delete exercise:", err);
+    return;
+  }
   fetchExercises();
 }
 
@@ -142,18 +160,24 @@ function handleEdit(e) {
   `;
 
   card.querySelector(".save-btn").addEventListener("click", async () => {
-    await fetch(`${API}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        Title: card.querySelector(".edit-title").value,
-        BodyPart: card.querySelector(".edit-bodypart").value,
-        Equipment: card.querySelector(".edit-equipment").value,
-        Type: card.querySelector(".edit-type").value,
-        Level: card.querySelector(".edit-level").value,
-        Desc: card.querySelector(".edit-desc").value,
-      }),
-    });
+    try {
+      const res = await fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Title: card.querySelector(".edit-title").value,
+          BodyPart: card.querySelector(".edit-bodypart").value,
+          Equipment: card.querySelector(".edit-equipment").value,
+          Type: card.querySelector(".edit-type").value,
+          Level: card.querySelector(".edit-level").value,
+          Desc: card.querySelector(".edit-desc").value,
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch (err) {
+      console.error("Failed to update exercise:", err);
+      return;
+    }
     fetchExercises();
   });
 
@@ -177,8 +201,15 @@ document.getElementById("random-btn").addEventListener("click", async () => {
   checkedBodyParts.forEach((bp) => params.append("bodyPart", bp));
   checkedEquipment.forEach((eq) => params.append("equipment", eq));
 
-  const res = await fetch(`/api/exercises/random?${params}`);
-  const exercises = await res.json();
+  let exercises;
+  try {
+    const res = await fetch(`/api/exercises/random?${params}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    exercises = await res.json();
+  } catch (err) {
+    console.error("Failed to generate random workout:", err);
+    return;
+  }
 
   const results = document.getElementById("random-results");
   results.innerHTML = `<h3>Your Random Workout</h3>`;
